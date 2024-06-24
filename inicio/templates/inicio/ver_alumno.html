@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block titel_head %}
+ALUMNO
+{% endblock titel_head %}
+
+
+
+{% block h1_header %}
+<h1>ALUMNO {{alumno.id}}</H1>
+{% endblock h1_header %}
+
+{% block main%}
+<url>
+    <li> Nombres: {{alumno.nombre}}</li>
+    <li> Apellido: {{alumno.apellido}}</li>
+</url>
+
+
+{% endblock main %}

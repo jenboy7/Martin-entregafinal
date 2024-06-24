@@ -3,7 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from inicio.models import Alumno
-from inicio.forms import CrearAlumnoFormulario
+from inicio.forms import AlumnoFormularioBase, CrearAlumnoFormulario,EditarAlumnoFormulario, BuscarAlumno
 
 
 def inicio(request):
@@ -11,6 +11,7 @@ def inicio(request):
 
 
 def crear_alumno(request):
+    formulario = CrearAlumnoFormulario()
     
     if request.method == 'POST':
         formulario = CrearAlumnoFormulario(request.POST)
@@ -20,11 +21,43 @@ def crear_alumno(request):
          alumno.save()
          return redirect('inicio') 
 
-    formulario = CrearAlumnoFormulario()
+    
     return render(request,r'inicio/crear_alumno.html', {'formulario':formulario})
 
 def alumnos(request):
     
-    alumnos = Alumno.objects.all()
+    formulario = BuscarAlumno(request.GET)
+    if formulario.is_valid():
+        apellido = formulario.cleaned_data['apellido']
+        alumnos = Alumno.objects.filter(apellido__icontains=apellido)
     
-    return render(request, 'inicio/alumnos.html', {'alumnos':alumnos})
+    # alumnos = Alumno.objects.all()
+    
+    return render(request, 'inicio/alumnos.html', {'alumnos':alumnos, 'formulario': formulario})
+
+def eliminar_alumno (request, id):
+    alumno = Alumno.objects.get(id=id)
+    alumno.delete()
+    return redirect('alumnos')
+
+def editar_alumno(request, id):
+    alumno = Alumno.objects.get(id=id)
+    
+    formulario = EditarAlumnoFormulario(initial={'nombre': alumno.nombre, 'apellido': alumno.apellido})
+    
+    if request.method == 'POST':
+        formulario = EditarAlumnoFormulario(request.POST)
+        if formulario.is_valid():
+            info = formulario.cleaned_data
+            
+            alumno.nombre = info['nombre']
+            alumno.apellido = info['apellido']
+            alumno.save()
+            return redirect('alumnos')
+    
+    
+    return render(request, 'inicio/editar_alumno.html', {'formulario': formulario, 'alumno': alumno})
+
+def ver_alumno(request, id):
+        alumno = Alumno.objects.get(id=id)
+        return render(request, 'inicio/ver_alumno.html', {'alumno': alumno})

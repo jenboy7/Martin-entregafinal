@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title_head %}
+LISTA DE MATERIAS
+{% endblock title_head %}
+
+
+{% block h1_header %}
+<h1>MATERIAS</h1>
+{% endblock h1_header %}
+
+{% block main %}
+<p>
+    <p>
+        <button onclick="location.href='{% url 'crear_materia' %}'">Agregar Materia</button>
+
+{% if materias %}
+        <ul>
+            {% for materia in materias %}
+            <li> {{materia}} |
+                {% comment %} <button onclick="location.href='{% url "ver_materia" materia.id %}">Detalle</button> {% endcomment %}
+                <a href={% url "ver_materia" materia.id %}>Detalle</a> 
+
+            </li>
+            {% endfor %}
+        </ul> 
+    {% else %}
+    <p>No hay materias disponibles. </p>
+    {% endif %}
+
+
+{% endblock main %}

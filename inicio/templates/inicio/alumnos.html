@@ -8,17 +8,38 @@ LISTA DE ALUMNOS
 {% block h1_header %}
 <h1>LISTA DE ALUMNOS</h1>
 {% endblock h1_header %}
-
+<a class="btn btn-primary" href={% url "crear_alumno" %}>INSCRIBIR ALUMNO</a>
 {% block main %}
-<form action={% url "alumnos" %} method = "POST">
-    {% csrf_token %}
-
-<ul>
-    {% for alumnos in alumnos  %}
-    <li> {{alumnos}}</li>
+<p>
+    <p>
+<button onclick="location.href='{% url 'crear_alumno' %}'">Agregar Alumno</button>
+{% comment %} <a class="btn " href={% url "" %}>INSCRIBIR ALUMNO</a> {% endcomment %}
+<form action={% url "alumnos" %} method = "get">
+<hr>
     
-    {% endfor %}
+    {{formulario}} 
+    
+    <input type="submit" value="Buscar">
+     
 
-</ul>
 </form>
+<hr>
+    {% csrf_token %}
+    
+    {% if alumnos %}
+        <ul>
+            {% for alumnos in alumnos  %}
+            <li> {{alumnos}} |
+                <button onclick="location.href='{% url "eliminar_alumno" alumnos.id %}'">Eliminar</button>
+                <button onclick="location.href='{% url  "editar_alumno" alumnos.id %}'">Editar</button>
+                <button onclick="location.href='{% url  "ver_alumno" alumnos.id %}'">Ver</button>
+
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <p>No hay alumnos. </p>
+    {% endif %}
+
+
 {% endblock main %}

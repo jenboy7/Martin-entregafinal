@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{{materia}}
+{% endblock titel_head %}
+
+
+
+{% block h1_header %}
+<h1>{{alumno}}</H1>
+{% endblock h1_header %}
+
+{% block main%}
+<url>
+    <li> Descripcion: {{materia.descripcion}}</li>
+    <li> Fecha de incio: {{materia.fecha}}</li>
+</url>
+
+
+{% endblock main %}
