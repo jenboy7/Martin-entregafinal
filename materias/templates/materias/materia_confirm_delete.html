@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title_head %}
+Eliminar Materias
+{% endblock title_head %}
+
+{% block h1_header %}
+<h1>ELIMINAR MATERIA</H1>
+{% endblock h1_header %}
+
+{% block main %}
+<form action={% url "materia_confirm_delete" materia.id %} method = "POST">
+    {% csrf_token %}
+    <p>
+        ¿Desea confirmar el borrado de la materia {{materia}}?
+    </p>
+
+    <input type="submit" value="Confirmar borrado">
+    
+
+    
+
+</form>
+
+{% endblock main %}

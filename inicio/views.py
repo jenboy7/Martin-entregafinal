@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.template import Template, Context, loader
 from inicio.models import Alumno
 from inicio.forms import AlumnoFormularioBase, CrearAlumnoFormulario,EditarAlumnoFormulario, BuscarAlumno
-
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     return render(request, 'inicio/index.html')
@@ -19,7 +19,7 @@ def crear_alumno(request):
          datos = formulario.cleaned_data
          alumno = Alumno(nombre=datos.get('nombre'), apellido=datos.get('apellido'))
          alumno.save()
-         return redirect('inicio') 
+         return redirect('alumnos') 
 
     
     return render(request,r'inicio/crear_alumno.html', {'formulario':formulario})
@@ -35,11 +35,14 @@ def alumnos(request):
     
     return render(request, 'inicio/alumnos.html', {'alumnos':alumnos, 'formulario': formulario})
 
+
+@login_required
 def eliminar_alumno (request, id):
     alumno = Alumno.objects.get(id=id)
     alumno.delete()
     return redirect('alumnos')
 
+@login_required
 def editar_alumno(request, id):
     alumno = Alumno.objects.get(id=id)
     

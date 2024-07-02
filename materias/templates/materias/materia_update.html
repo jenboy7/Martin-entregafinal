@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title_head %}
+Editar Materias
+{% endblock title_head %}
+
+{% block h1_header %}
+<h1>EDITAR MATERIA</H1>
+{% endblock h1_header %}
+
+{% block main %}
+<form action={% url "materia_update" materia.id %} method = "POST">
+    {% csrf_token %}
+    
+
+    {{form}}
+
+    <input type="submit" value="Actualizar">
+    
+
+</form>
+
+{% endblock main %}

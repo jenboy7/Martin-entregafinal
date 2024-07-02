@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView 
 
 from .models import Materia
@@ -21,7 +21,20 @@ class CrearMateria(CreateView):
     success_url = reverse_lazy('materias')
     fields = ['materia', 'fecha', 'descripcion' ]
     
-
+ 
 class VerMateria(DetailView):
     model = Materia
     tample_name = 'materias/ver_materia.html'
+    
+
+class EditarMateria(UpdateView):
+    model = Materia
+    template_name = 'materias/materia_update.html'
+    success_url = reverse_lazy('materias')
+    fields = ['materia', 'fecha', 'descripcion' ]
+    
+    
+class EliminarMateria(DeleteView):
+    model = Materia
+    tample_name = 'materias/materia_confirm_delete.html'
+    success_url = reverse_lazy('materias')

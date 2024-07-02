@@ -18,8 +18,12 @@ LISTA DE MATERIAS
         <ul>
             {% for materia in materias %}
             <li> {{materia}} |
-                {% comment %} <button onclick="location.href='{% url "ver_materia" materia.id %}">Detalle</button> {% endcomment %}
-                <a href={% url "ver_materia" materia.id %}>Detalle</a> 
+                <button onclick="location.href='{% url "materia_update" materia.pk %}'">Editar</button>
+                <button onclick="location.href='{% url "materia_detail" materia.id %}'">Detalle</button>
+                <button onclick="location.href='{% url "materia_confirm_delete" materia.id %}'">Eliminar</button>
+                
+                {% comment %} <a href={% url "materia_detail" materia.id %}>Detalle</a>  {% endcomment %}
+
 
             </li>
             {% endfor %}
