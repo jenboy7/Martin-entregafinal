@@ -29,7 +29,7 @@ LISTA DE ALUMNOS
     {% if alumnos %}
         <ul>
             {% for alumnos in alumnos  %}
-            <li> {{alumnos}} |
+            <li>&nbsp {{alumnos}} |
                 <button onclick="location.href='{% url "eliminar_alumno" alumnos.id %}'">Eliminar</button>
                 <button onclick="location.href='{% url  "editar_alumno" alumnos.id %}'">Editar</button>
                 <button onclick="location.href='{% url  "ver_alumno" alumnos.id %}'">Ver</button>

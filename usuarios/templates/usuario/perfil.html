@@ -1,0 +1,21 @@
+ {% extends "base.html" %}
+
+{% block title_head %}
+EDITAR PERFIL
+{% endblock title_head %}
+
+{% block h1_header %}
+<h1>Perfil de Usuario</H1>
+{% endblock h1_header %}
+
+{% block main %}
+{% csrf_token %}
+  <body>
+ 
+    <h1> &nbsp {{ user.username }}</h1>
+    <p><strong> &nbsp Nombre:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>&nbsp Email:</strong> {{ user.email }}</p>
+    <p><strong> &nbsp Fecha de registro:</strong> {{ user.date_joined }}</p>
+    </body>
+    &nbsp&nbsp&nbsp&nbsp&nbsp<button onclick="location.href='{% url "perfil_edit"%}'">Editar Datos</button>
+{% endblock main %} 

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Materia
 from django.urls import reverse_lazy
@@ -27,14 +28,14 @@ class VerMateria(DetailView):
     tample_name = 'materias/ver_materia.html'
     
 
-class EditarMateria(UpdateView):
+class EditarMateria(LoginRequiredMixin, UpdateView):
     model = Materia
     template_name = 'materias/materia_update.html'
     success_url = reverse_lazy('materias')
     fields = ['materia', 'fecha', 'descripcion' ]
     
     
-class EliminarMateria(DeleteView):
+class EliminarMateria(LoginRequiredMixin, DeleteView):
     model = Materia
     tample_name = 'materias/materia_confirm_delete.html'
     success_url = reverse_lazy('materias')
